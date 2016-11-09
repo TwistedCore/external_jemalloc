@@ -21,7 +21,9 @@ LOCAL_SDCLANG_LTO_LDFLAGS := -O3 -funroll-loops
 LOCAL_FDO_SUPPORT := true
 
 jemalloc_common_cflags := \
-	-std=gnu99 \
+        -O3 \
+        -funroll-loops \
+	-std=gnu11 \
 	-D_REENTRANT \
 	-fvisibility=hidden \
 	-Wno-unused-parameter \
