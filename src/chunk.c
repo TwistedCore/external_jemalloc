@@ -207,7 +207,10 @@ chunk_recycle(arena_t *arena, chunk_hooks_t *chunk_hooks,
 	size_t alloc_size, leadsize, trailsize;
 	bool zeroed, committed;
 
+	assert(CHUNK_CEILING(size) == size);
+	assert(alignment > 0);
 	assert(new_addr == NULL || alignment == chunksize);
+	assert(CHUNK_ADDR2BASE(new_addr) == new_addr);
 	/*
 	 * Cached chunks use the node linkage embedded in their headers, in
 	 * which case dalloc_node is true, and new_addr is non-NULL because
@@ -215,7 +218,7 @@ chunk_recycle(arena_t *arena, chunk_hooks_t *chunk_hooks,
 	 */
 	assert(dalloc_node || new_addr != NULL);
 
-	alloc_size = CHUNK_CEILING(s2u(size + alignment - chunksize));
+	alloc_size = size + CHUNK_CEILING(alignment) - chunksize;
 	/* Beware size_t wrap-around. */
 	if (alloc_size < size)
 		return (NULL);
