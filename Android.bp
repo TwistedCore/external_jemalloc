@@ -14,10 +14,15 @@
 // limitations under the License.
 //
 
+
+LOCAL_SDCLANG_LTO := true
+LOCAL_SDCLANG_LTO_LDFLAGS := -O3 -funroll-loops
+LOCAL_FDO_SUPPORT := true
+
 common_cflags = [
     "-O3",
     "-funroll-loops",
-    "-std=gnu99",
+    "-std=gnu11",
     "-D_REENTRANT",
     "-fvisibility=hidden",
     "-Wno-unused-parameter",
